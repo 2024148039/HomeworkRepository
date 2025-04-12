@@ -1,0 +1,109 @@
+body {
+    background-color: #ffffff;
+    font-family: 'Arial', sans-serif;
+    color: #000000;
+    padding: 0px;
+    margin: 0;
+}
+
+header {
+    text-align: left;
+    background-color: rgb(57, 82, 136);
+    color: white;
+    padding: 20px;
+    margin-bottom: 50px;
+    box-shadow: 0px 5px 20px #808080;
+}
+
+header h1 {
+    font-size: 50px;
+    margin: 20px;
+    margin-bottom: 0px;
+}
+
+.links {
+    text-align: right;
+    font-size: 16px;
+}
+
+.links .currpage {
+    display: inline-block;
+    margin: 0 8px;
+    color: rgb(236, 211, 67); 
+    text-decoration: none;
+}
+.links a {
+    display: inline-block;
+    margin: 0 8px;
+    color: white; /* 배경색에 맞춰서 조정 */
+    text-decoration: none;
+    padding: 10px;
+}
+
+.links a:hover {
+    background-color: rgb(77, 104, 163);
+}
+
+form {
+    width: 400px;
+    margin: 0 auto;
+    padding: 30px;
+    background-color: white;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+}
+
+form div {
+    margin-bottom: 15px;
+}
+
+label {
+    display: inline-block;
+    width: 100px;
+    font-size: 14px;
+}
+
+input.name,
+input.userid,
+input.userpwd,
+input.birthday,
+input.grade,
+select {
+    width: 250px;
+    height: 30px;
+    font-size: 14px;
+    padding: 5px;
+    border: 1px solid #aaa;
+    border-radius: 4px;
+}
+
+input.gender {
+    width: auto;
+    height: auto;
+    margin-left: 10px;
+}
+
+input.submit,
+input.cancel {
+    width: 100px;
+    height: 35px;
+    font-size: 16px;
+    margin: 10px 5px;
+    background-color: #21b41c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+input.cancel {
+    background-color: #8d8d8d;
+}
+input.cancel:hover {
+    background-color: #afafaf;
+}
+
+input.submit:hover {
+    background-color: #2fd129;
+}
+
+
