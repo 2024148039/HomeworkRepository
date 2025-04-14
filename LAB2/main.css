@@ -35,7 +35,7 @@ header h1 {
 .links a {
     display: inline-block;
     margin: 0 8px;
-    color: white; /* 배경색에 맞춰서 조정 */
+    color: white;
     text-decoration: none;
     padding: 10px;
 }
