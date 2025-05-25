@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Main page</title>
+    <link rel="stylesheet" type="text/css" href="main.css">
+</head>
+<body>
+    <div class="contents">
+        <header>
+            <h1>Welcome to IP MOVIE SITE</h1>
+            <nav>
+                <span class="menu">메인 페이지</span>
+                <span class="menu"><a href="login.html">로그인</a></span>
+                <span class="menu"><a href="signup.html">회원가입</a></span>
+            </nav>
+        </header>
+
+        <div class="search-section">
+            <input type="text" id="search" placeholder="키워드를 입력하세요">
+            <button class="filter-btn">Search</button>
+        </div>
+
+        <div class="main-layout">
+            <aside class="sidebar">
+                <h3>정렬 기준</h3>
+                <div class="sort-options">
+                    <label><input type="radio" name="sort" value="rating-desc"> 평점 내림차순</label>
+                    <label><input type="radio" name="sort" value="rating-asc"> 평점 오름차순</label>
+                    <label><input type="radio" name="sort" value="date-desc"> 개봉 내림차순</label>
+                    <label><input type="radio" name="sort" value="date-asc"> 개봉 오름차순</label>
+                </div>
+            </aside>
+
+            <main class="main-contents">
+                <div class="movies">
+                    <h2>Movies</h2>
+                    <hr>
+                    <div class="movie-list" id="movie-list"></div>
+                </div>
+            </main>
+        </div>
+
+        <script>
+            let moviesData = [];
+            let filteredData = [];
+
+            function displayMovies(movies) {
+                const movieList = document.getElementById('movie-list');
+                movieList.innerHTML = '';
+
+                movies.forEach(movie => {
+                    const movieItem = document.createElement('div');
+                    movieItem.className = 'movie';
+
+                    movieItem.innerHTML = `
+                        <div class="poster-container">
+                            <img src="${movie.poster}" alt="${movie.name}" class="poster">
+                            <div class="overview"><p>${movie.overview}</p></div>
+                        </div>
+                        <div class="movie-info">
+                            <h3>${movie.name}</h3>
+                            <p>📅 ${movie.release_date}</p>
+                            <p>⭐ ${movie.vote_average}/10</p>
+                        </div>
+                    `;
+                    movieList.appendChild(movieItem);
+                });
+            }
+
+            function sortMovies(criteria) {
+                filteredData.sort((a, b) => {
+                    if (criteria === 'rating-desc') return b.vote_average - a.vote_average;
+                    if (criteria === 'rating-asc') return a.vote_average - b.vote_average;
+                    if (criteria === 'date-desc') return new Date(b.release_date) - new Date(a.release_date);
+                    if (criteria === 'date-asc') return new Date(a.release_date) - new Date(b.release_date);
+                    return 0;
+                });
+                displayMovies(filteredData);
+            }
+
+            fetch('product.json')
+                .then(response => response.json())
+                .then(data => {
+                    moviesData = data;
+                    filteredData = [...moviesData];
+                    displayMovies(filteredData);
+                })
+                .catch(error => {
+                    console.error('영화 정보를 불러오는 데 실패했습니다.', error);
+                });
+
+            document.getElementById('search').addEventListener('input', function () {
+                const keyword = this.value.toLowerCase();
+                filteredData = moviesData.filter(movie =>
+                    movie.name.toLowerCase().includes(keyword)
+                );
+                const selected = document.querySelector('input[name="sort"]:checked');
+                if (selected) {
+                    sortMovies(selected.value);
+                } else {
+                    displayMovies(filteredData);
+                }
+            });
+
+            document.querySelectorAll('input[name="sort"]').forEach(radio => {
+                radio.addEventListener('change', function () {
+                    sortMovies(this.value);
+                });
+            });
+        </script>
+    </div>
+</body>
+</html>
